@@ -25,7 +25,8 @@ except ImportError:
     from Bio.Seq import _UndefinedSequenceData
 
 
-def main(gff_file, fasta_file):
+def main():
+    gff_file, fasta_file = sys.argv[1:]
     # Write to stdout
     fasta_input = SeqIO.to_dict(SeqIO.parse(fasta_file, "fasta"))
     gff_iter = GFF.parse(gff_file, fasta_input)
@@ -132,4 +133,4 @@ def _join_features(f: SeqFeature.SeqFeature, g: SeqFeature.SeqFeature) -> SeqFea
     
 
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    main()
