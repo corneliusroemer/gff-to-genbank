@@ -39,5 +39,5 @@ Publishing to PyPi:
 
 ```bash
 hatch build
-hatch publish
+hatch publish -u=__token__
 ```
