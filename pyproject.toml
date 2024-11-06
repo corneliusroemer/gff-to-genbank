@@ -7,7 +7,7 @@ name = "gff-to-genbank"
 dynamic = ["version"]
 description = 'Script to convert from GFF to Genbank'
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.8"
 license = "MIT"
 
 dependencies = ["BCBio-GFF>=0.7", "biopython>=1.81"]
