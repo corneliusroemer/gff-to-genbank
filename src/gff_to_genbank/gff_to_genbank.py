@@ -10,10 +10,8 @@ Usage:
 """
 import sys
 
-from Bio import SeqIO
-from Bio import SeqFeature
-
 from BCBio import GFF
+from Bio import SeqFeature, SeqIO
 
 # Copied from https://github.com/chapmanb/bcbb/commit/8a36af0c1af2c2b39e841cea2496f7a367ffdae5
 unknown_seq_avail = True
@@ -32,6 +30,7 @@ def main():
     gff_iter = GFF.parse(gff_file, fasta_input)
     # record: SeqRecord.SeqRecord = (next(_fix_ncbi_id(_extract_regions(gff_iter))))
     # print(type(record))
+
     SeqIO.write(
         _check_gff(_fix_ncbi_id(_extract_regions(gff_iter))), sys.stdout, "genbank"
     )
@@ -90,6 +89,13 @@ def _extract_regions(gff_iterator):
                 )
         rec.seq = rec.seq[loc:endloc]
         rec.annotations["molecule_type"] = "DNA"
+
+        # If there's a region feature, rename it to source
+        # As source is mandatory in GenBank files
+        for f in rec.features:
+            if f.type == "region":
+                f.type = "source"
+
         yield rec
 
 
